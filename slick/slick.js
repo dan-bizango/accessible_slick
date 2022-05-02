@@ -1395,7 +1395,8 @@
                 $(this).attr({
                     'role': 'tabpanel',
                     'id': 'slick-slide' + _.instanceUid + i,
-                    'tabindex': -1
+                    'tabindex': -1,
+                    'aria-selected': 'false'
                 });
 
                 if (slideControlIndex !== -1) {
