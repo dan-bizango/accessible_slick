@@ -394,13 +394,6 @@
         if ( _.slideCount > _.options.slidesToShow ) {
             _.autoPlayTimer = setInterval( _.autoPlayIterator, _.options.autoplaySpeed );
         }
-        // remove aria-live if autoplay is true
-        if (_.options['autoplay']) {
-            _.$slider.attr('aria-live', '');
-        }
-        else {
-            _.$slider.attr('aria-live', 'polite');
-        }
 
     };
 
@@ -1369,7 +1362,10 @@
 
             _.paused = false;
             _.autoPlay();
-
+            _.$slider.attr('aria-live', '');
+        }
+        else {
+            _.$slider.attr('aria-live', 'polite');
         }
 
     };
@@ -1474,10 +1470,12 @@
                 if (_.paused == false) {
                     _.pause();
                     _.$playPauseButton.attr({'aria-label': 'Start Carousel Animation', 'data-state': 'paused'}).text('Play');
+                    _.$slider.attr('aria-live', 'polite');
                 }
                 else {
                     _.play();
                     _.$playPauseButton.attr({'aria-label': 'Pause Carousel Animation', 'data-state': 'playing'}).text('Pause');
+                    _.$slider.attr('aria-live', '');
                 }
             });
             _.$playPauseButton.on('keydown.slick', _.keyHandler);
