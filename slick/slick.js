@@ -528,6 +528,7 @@
             _.$dots = dot.appendTo(_.options.appendDots);
 
             _.$dots.find('li').first().addClass('slick-active');
+            _.$dots.find('button').attr('aria-selected', 'false');
 
         }
 
@@ -586,6 +587,8 @@
         _.buildDots();
 
         _.updateDots();
+
+        _.initADA();
 
 
         _.setSlideClasses(typeof _.currentSlide === 'number' ? _.currentSlide : 0);
@@ -1354,9 +1357,9 @@
             _.$slider.trigger('init', [_]);
         }
 
-        if (_.options.accessibility === true) {
+        // if (_.options.accessibility === true) {
             _.initADA();
-        }
+        // }
 
         if ( _.options.autoplay ) {
 
@@ -1435,7 +1438,9 @@
           }
         }
 
-        _.activateADA();
+        if (_.options.accessibility) {
+            _.activateADA();
+        }
 
     };
 
@@ -3053,12 +3058,14 @@
             _.$dots
                 .find('li')
                     .removeClass('slick-active')
+                    .find('button').eq(0).attr('aria-selected', 'false')
                     .end();
 
             _.$dots
                 .find('li')
                 .eq(Math.floor(_.currentSlide / _.options.slidesToScroll))
-                .addClass('slick-active');
+                .addClass('slick-active')
+                .find('button').eq(0).attr('aria-selected', 'true');
 
         }
 
